@@ -9,13 +9,13 @@ module IAPValidator
     SANDBOX_URL = 'https://sandbox.itunes.apple.com'
     PRODUCTION_URL = 'https://buy.itunes.apple.com'
 
-    base_uri PRODUCTION_URL
+    base_uri SANDBOX_URL
 
     headers 'Content-Type' => 'application/json'
     format :json
 
-    def self.validate(data, sandbox = false)
-      base_uri SANDBOX_URL if sandbox
+    def self.validate_iap(data, production = false)
+      base_uri PRODUCTION_URL if production
 
       resp = post('/verifyReceipt', :body => MultiJson.encode({ 'receipt-data' => data }) )
 
@@ -26,8 +26,25 @@ module IAPValidator
       end
     end
 
-    def self.valid?(data, sandbox = false)
-      resp = validate(data, sandbox)
+    def self.valid_iap?(data, production = false)
+      resp = validate_iap(data, production)
+      !resp.nil? && resp['status'] == 0
+    end
+
+
+    def self.validate_subscription(data, itunes_connect_secret, production = false)
+      base_uri PRODUCTION_URL if production
+      resp = post('/verifyReceipt', :body => MultiJson.encode({'receipt-data' => data, 'password' => itunes_connect_secret}))
+
+      if resp.code == 200
+        MultiJson.decode(resp.body())
+      else
+        nil
+      end
+    end
+
+    def self.valid_subscription?(data, itunes_connect_secret, production = false)
+      resp = validate_subscription(data, production)
       !resp.nil? && resp['status'] == 0
     end
   end
