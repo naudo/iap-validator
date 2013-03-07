@@ -63,7 +63,7 @@ module IAPValidator
     end
 
     def self.valid_subscription?(data, itunes_connect_secret, production = false)
-      resp = validate_subscription(data, production)
+      resp = validate_subscription(data, pitunes_connect_secret, production)
       !resp.nil? && resp['status'] == 0
     end
   end
