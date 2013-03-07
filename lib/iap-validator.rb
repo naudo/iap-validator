@@ -38,24 +38,24 @@ module IAPValidator
       resp = post('/verifyReceipt', :body => MultiJson.encode({'receipt-data' => data, 'password' => itunes_connect_secret}))
 
       response_body = MultiJson.decode(resp.body())
-      case resp['status']
-      when 21000
-        raise Exceptions::InvalidJSONError.new(:message => response_body)
-      when 21002
-        raise Exceptions::MalformedReceiptDataError.new(:message => response_body)
-      when 21003
-        raise Exceptions::InvalidReceiptAuthenticationError.new(:message => response_body)
-      when 21004
-        raise Exceptions::InvalidSharedSecretError.new(:message => response_body)
-      when 21005
-        raise Exceptions::ReceiptServerUnavailableError.new(:message => response_body)
-      when 21006
-        raise Exceptions::ExpiredSubscriptionError.new(:message => response_body)
-      when 21007
-        raise Exceptions::SanboxReceiptInProductionError.new(:message => response_body)
-      when 21008
-        raise Exceptions::ProductionReceiptInSandboxError.new(:message => response_body)
-      end
+      # case resp['status']
+      # when 21000
+      #   raise Exceptions::InvalidJSONError.new(:message => response_body)
+      # when 21002
+      #   raise Exceptions::MalformedReceiptDataError.new(:message => response_body)
+      # when 21003
+      #   raise Exceptions::InvalidReceiptAuthenticationError.new(:message => response_body)
+      # when 21004
+      #   raise Exceptions::InvalidSharedSecretError.new(:message => response_body)
+      # when 21005
+      #   raise Exceptions::ReceiptServerUnavailableError.new(:message => response_body)
+      # when 21006
+      #   raise Exceptions::ExpiredSubscriptionError.new(:message => response_body)
+      # when 21007
+      #   raise Exceptions::SanboxReceiptInProductionError.new(:message => response_body)
+      # when 21008
+      #   raise Exceptions::ProductionReceiptInSandboxError.new(:message => response_body)
+      # end
 
      resp.code == 200 ? response_body : nil
     end
