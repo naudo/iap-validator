@@ -1,7 +1,7 @@
 require "iap-validator/version"
 
 require 'httparty'
-
+require 'exceptions'
 module IAPValidator
   class IAPValidator
     include HTTParty
