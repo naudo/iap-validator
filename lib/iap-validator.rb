@@ -37,21 +37,21 @@ module IAPValidator
       resp = post('/verifyReceipt', :body => MultiJson.encode({'receipt-data' => data, 'password' => itunes_connect_secret}))
 
       case resp['status']
-      when "21000"
+      when 21000
         raise IAPValidator::InvalidJSONError
-      when "21002"
+      when 21002
         raise IAPValidator::MalformedReceiptDataError
-      when "21003"
+      when 21003
         raise IAPValidator::InvalidReceiptAuthenticationError
-      when "21004"
+      when 21004
         raise IAPValidator::InvalidSharedSecretError
-      when "21005"
+      when 21005
         raise IAPValidator::ReceiptServerUnavailableError
-      when "21006"
+      when 21006
         raise IAPValidator::ExpiredSubscriptionError
-      when "21007"
+      when 21007
         raise IAPValidator::SanboxReceiptInProductionError
-      when "21008"
+      when 21008
         raise IAPValidator::ProductionReceiptInSandboxError
       end
 
