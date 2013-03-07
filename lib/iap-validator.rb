@@ -38,21 +38,21 @@ module IAPValidator
 
       case resp['status']
       when 21000
-        raise InvalidJSONError
+        raise Exceptions::InvalidJSONError
       when 21002
-        raise MalformedReceiptDataError
+        raise Exceptions::MalformedReceiptDataError
       when 21003
-        raise InvalidReceiptAuthenticationError
+        raise Exceptions::InvalidReceiptAuthenticationError
       when 21004
-        raise InvalidSharedSecretError
+        raise Exceptions::InvalidSharedSecretError
       when 21005
-        raise ReceiptServerUnavailableError
+        raise Exceptions::ReceiptServerUnavailableError
       when 21006
-        raise ExpiredSubscriptionError
+        raise Exceptions::ExpiredSubscriptionError
       when 21007
-        raise SanboxReceiptInProductionError
+        raise Exceptions::SanboxReceiptInProductionError
       when 21008
-        raise ProductionReceiptInSandboxError
+        raise Exceptions::ProductionReceiptInSandboxError
       end
 
       if resp.code == 200

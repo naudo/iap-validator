@@ -1,4 +1,4 @@
-module IAPValidator
+module Exceptions
   class InvalidJSONError < StandardError; end
   class MalformedReceiptDataError < StandardError; end
   class InvalidReceiptAuthenticationError < StandardError; end
